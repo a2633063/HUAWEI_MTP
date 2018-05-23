@@ -57,9 +57,7 @@ namespace MTP
         {
 
             bool a = ShowWindow(instance.MainWindowHandle, 9);
-            MessageBox.Show(instance.Id + "," + a);
             SetForegroundWindow(instance.MainWindowHandle);
-            Form.FromHandle(instance.MainWindowHandle).Show();
         }
     }
 }
