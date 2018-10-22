@@ -247,7 +247,7 @@
             // 
             this.getTxt.Location = new System.Drawing.Point(6, 20);
             this.getTxt.Name = "getTxt";
-            this.getTxt.Size = new System.Drawing.Size(356, 53);
+            this.getTxt.Size = new System.Drawing.Size(325, 53);
             this.getTxt.TabIndex = 0;
             this.getTxt.Text = "获取文本";
             this.getTxt.UseVisualStyleBackColor = true;

@@ -73,7 +73,8 @@ namespace MTP
 
         private String adbCmd(String cmd)
         {
-
+           // cmd =Encoding.UTF8.GetString(Encoding.Default.GetBytes(cmd));
+            //cmd=Encoding.Convert(Encoding.GetEncoding("GBK"), Encoding.UTF8, cmd.);
             try
             {
 
@@ -220,7 +221,7 @@ namespace MTP
         {
             if (listBox1.SelectedIndex > 0)
             {
-                log.AppendText(adbCmd("pull \"" + Path.Text + listBox1.SelectedItem.ToString() + "\" \"" + textBox1.Text + "\""));
+                log.AppendText(adbCmd("pull \"" + Path.Text + listBox1.SelectedItem.ToString() + "\" \"" + textBox1.Text + "\\" + listBox1.SelectedItem.ToString() + "\""));
             }
         }
 
@@ -229,7 +230,7 @@ namespace MTP
             string desktopPath = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
             if (listBox1.SelectedIndex > 0)
             {
-                log.AppendText(adbCmd("pull \"" + Path.Text + listBox1.SelectedItem.ToString() + "\" \"" + desktopPath + "\""));
+                log.AppendText(adbCmd("pull \"" + Path.Text + listBox1.SelectedItem.ToString() + "\" \"" + desktopPath + "\\" + listBox1.SelectedItem.ToString() + "\""));
             }
 
 
@@ -269,8 +270,7 @@ namespace MTP
             {
                 log.AppendText("获取失败,请保证temp.txt文件存在储存根目录下.(可以用APP自动生成)" + "\r\n");
             }
-
-
+            
         }
 
 
