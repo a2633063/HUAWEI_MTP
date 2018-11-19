@@ -294,7 +294,7 @@ namespace MTP
                 //MessageBox.Show(file);
                 if (file.EndsWith("apk"))
                 {
-                    log.AppendText(adbCmd("install " + file) + "\r\n");
+                    log.AppendText(adbCmd("install \"" + file) + "\"\r\n");
                 }
                 else
                 {
