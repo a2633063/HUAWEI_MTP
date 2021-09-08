@@ -7,6 +7,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -14,10 +15,63 @@ namespace MTP
 {
     public partial class Form1 : Form
     {
+        string SDcard_path;
+        bool path_save_flag = false;
+
+        List<Button> ListQuickPath = new List<Button>();
         public Form1()
         {
             InitializeComponent();
+            #region 设置保存初始化
+            string str = Properties.Settings.Default.Path1;
+            string[] str_arr = str.Split('\n');//\n分割按钮  \r分割标题和路径
+            foreach (string s in str_arr)
+            {
+                string[] str_path = s.Split('\r');
+                if (str_path.Length != 2) continue;
+                ListQuickPath.Add(newPathButton(str_path[0], str_path[1]));
+            }
+
+            if (ListQuickPath.Count < 1)
+            {
+                ListQuickPath.Add(newPathButton("默认路径", "storage/emulated/0"));
+            }
+            _ListQuickPath_Layout();
+            #endregion
         }
+        Button newPathButton(string _name, string _path)
+        {
+            Button l = new Button();
+            l.Text = _name;
+            l.Tag = _path;
+            l.Click += QuickPath_Click;
+            l.ContextMenuStrip = MenuQuickPath;
+            toolTip1.SetToolTip(l, (string)l.Tag + "\r\n右键菜单设置");
+            return l;
+        }
+        void _ListQuickPath_Layout()
+        {
+            const int QUICK_PATH_BUTTON_WIDTH = 73; //按钮宽度
+            const int QUICK_PATH_BUTTON_HIGHT = 23;  //按钮高度
+            const int QUICK_PATH_BUTTON_SPACE_X = 0; //按钮横向间距
+            const int QUICK_PATH_BUTTON_SPACE_Y = 0; //按钮竖向间距
+            const int QUICK_PATH_BUTTON_START_X = 0; //第一个按钮x坐标
+            const int QUICK_PATH_BUTTON_START_Y = 6; //第一个按钮y坐标
+
+            panelQuickPathList.Controls.Clear();
+            for (int i = 0; i < ListQuickPath.Count; i++)
+            {
+                Point p = new Point();
+                p.X = QUICK_PATH_BUTTON_START_X + i % 5 * (QUICK_PATH_BUTTON_WIDTH + QUICK_PATH_BUTTON_SPACE_X);
+                p.Y = QUICK_PATH_BUTTON_START_Y + i / 5 * (QUICK_PATH_BUTTON_HIGHT + QUICK_PATH_BUTTON_SPACE_Y);
+
+                ListQuickPath[i].Location = p;
+                ListQuickPath[i].Width = QUICK_PATH_BUTTON_WIDTH;
+                ListQuickPath[i].Height = QUICK_PATH_BUTTON_HIGHT;
+                panelQuickPathList.Controls.Add(ListQuickPath[i]);
+            }
+        }
+
 
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -30,9 +84,23 @@ namespace MTP
 
             if (textBox1.Text.Length < 2)
                 textBox1.Text = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
+
+
         }
+
         private void setting_save(object sender, EventArgs e)
         {
+            if(path_save_flag)
+            {
+                string str = "";
+                path_save_flag = false;
+                foreach(Button b in ListQuickPath)
+                {//\n分割按钮  \r分割标题和路径
+                    str += b.Text + "\r" + (string)b.Tag +"\n";
+                }
+
+                Properties.Settings.Default.Path1 = str;
+            }
             Properties.Settings.Default.Save();
         }
         private void buttonDevices_Click(object sender, EventArgs e)
@@ -73,7 +141,7 @@ namespace MTP
 
         private String adbCmd(String cmd)
         {
-           // cmd =Encoding.UTF8.GetString(Encoding.Default.GetBytes(cmd));
+            // cmd =Encoding.UTF8.GetString(Encoding.Default.GetBytes(cmd));
             //cmd=Encoding.Convert(Encoding.GetEncoding("GBK"), Encoding.UTF8, cmd.);
             try
             {
@@ -221,7 +289,9 @@ namespace MTP
         {
             if (listBox1.SelectedIndex > 0)
             {
-                log.AppendText(adbCmd("pull \"" + Path.Text + listBox1.SelectedItem.ToString() + "\" \"" + textBox1.Text + "\\" + listBox1.SelectedItem.ToString() + "\""));
+                string tar_path = textBox1.Text;
+                if (!tar_path.EndsWith("/")) tar_path = tar_path + "/";
+                log.AppendText(adbCmd("pull \"" + Path.Text + listBox1.SelectedItem.ToString() + "\" \"" + tar_path + listBox1.SelectedItem.ToString() + "\""));
             }
         }
 
@@ -252,6 +322,8 @@ namespace MTP
 
         private void RefileSD_Click(object sender, EventArgs e)
         {
+            //SDcard_path = adbCmd("shell echo $EXTERNAL_STORAGE").Trim().Replace("\r","").Replace("\n", "");
+            //adbList(SDcard_path);
             adbList("storage/emulated/0");
         }
 
@@ -264,13 +336,12 @@ namespace MTP
 
         private void getTxt_Click(object sender, EventArgs e)
         {
-            String reader = adbCmd("shell cat storage/emulated/0/temp.txt");
+            String reader = adbCmd("shell cat storage/emulated/0/_Zip/file/temp.txt");
             log.Text = reader;
             if (reader.Contains("temp.txt: No such file or directory"))
             {
-                log.AppendText("获取失败,请保证temp.txt文件存在储存根目录下.(可以用APP自动生成)" + "\r\n");
+                log.AppendText("获取失败,请保证temp.txt文件存在储存_Zip/file目录下.(可以用APP自动生成)" + "\r\n");
             }
-            
         }
 
 
@@ -283,6 +354,7 @@ namespace MTP
 
         private void apkInstall_DragDrop(object sender, DragEventArgs e)
         {
+            bool isApk = false, isFile = false;
             if (comboDevices.Items.Count < 1)
             {
                 buttonDevices_Click(null, null);
@@ -292,15 +364,26 @@ namespace MTP
             foreach (string file in filePath)
             {
                 //MessageBox.Show(file);
-                if (file.EndsWith("apk"))
+                if (file.EndsWith("apk") && !chkAPKCopy.Checked)
                 {
-                    log.AppendText(adbCmd("install \"" + file) + "\"\r\n");
+                    isApk = true;
+                    log.AppendText(adbCmd("install \"" + file + "\"") + "\r\n");
                 }
                 else
                 {
-                    MessageBox.Show(file);
+                    isFile = true;
+                    Regex reg = new Regex(@".*\\");
+                    string fileName = reg.Replace(file, "");
+
+                    log.AppendText(adbCmd("push \"" + file + "\" \"/storage/emulated/0/_Zip/file/" + fileName + "\"") + "\r\n");
+
+                    //MessageBox.Show(file);
                 }
+
             }
+
+            if (isApk) log.AppendText("apk文件安装命令已执行\r\n");
+            if (isFile) log.AppendText("文件复制至存储空间命令已执行 _Zip/file文件夹内\r\n");
         }
 
         private void adbPath_DoubleClick(object sender, EventArgs e)
@@ -314,7 +397,7 @@ namespace MTP
 
         private void screenshot_Click(object sender, EventArgs e)
         {
-            adbCmd("shell screencap -p " + Path.Text + "screenshot.png");
+            adbCmd("shell screencap -p \"" + Path.Text + "screenshot.png\"");
             reFile_Click(null, null);
             listBox1.SelectedItem = "screenshot.png";
         }
@@ -327,7 +410,7 @@ namespace MTP
                 if (dr == DialogResult.OK)
                 {//确定
                     int x = listBox1.SelectedIndex;
-                    adbCmd("shell rm " + Path.Text + listBox1.SelectedItem.ToString());
+                    adbCmd("shell rm \"" + Path.Text + listBox1.SelectedItem.ToString() + "\"");
                     reFile_Click(null, null);
                     listBox1.SelectedIndex = x - 1;//删除后选中上一个选项
 
@@ -340,6 +423,76 @@ namespace MTP
             }
         }
 
+        private void btnSaveTxt_Click(object sender, EventArgs e)
+        {
+            string[] str = log.Text.Replace("\r\n", "\n").Split('\n');
+            for (int i = 0; i < str.Length; i++)
+            {
+                adbCmd("shell \" echo " + str[i] + " >" + (i == 0 ? "" : ">") + " storage/emulated/0/_Zip/file/temp.txt" + "\"");
+            }
 
+            //log.AppendText(adbCmd("shell \" echo " + str + " > storage/emulated/0/_Zip/file/temp.txt" + "\"") + "\r\n");
+
+        }
+        private void QuickPath_Click(object sender, EventArgs e)
+        {
+            /* if (((MouseEventArgs)e).Button == MouseButtons.Right)
+             {
+                 PathDialog p = new PathDialog(((Label)sender).Text, ((string)((Label)sender).Tag));
+                 if (p.ShowDialog() == DialogResult.OK)
+                 {
+                     log.AppendText(p.Title + "\r\n" + p.Path);
+                 }
+                 p.Dispose();
+             }
+             else*/
+            {
+                //log.AppendText(((string)((Button)sender).Tag) + "\r\n");
+                adbList(((string)((Button)sender).Tag));
+            }
+        }
+
+        private void MenuQuickPath_Opening(object sender, CancelEventArgs e)
+        {
+            if ((sender as ContextMenuStrip).SourceControl.Name.Equals(panelQuickPathList.Name))
+            {
+                设置ToolStripMenuItem.Enabled = false;
+                删除ToolStripMenuItem.Enabled = false;
+            }
+            else
+            {
+                设置ToolStripMenuItem.Enabled = true;
+                删除ToolStripMenuItem.Enabled = true;
+            }
+        }
+
+        private void 设置ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Button b = (Button)((ContextMenuStrip)(((ToolStripMenuItem)sender).GetCurrentParent())).SourceControl;
+            PathDialog p = new PathDialog(b.Text, ((string)b.Tag));
+            if (p.ShowDialog() == DialogResult.OK)
+            {
+                path_save_flag = true;
+                b.Text = p.Title;
+                b.Tag = p.Path;
+                toolTip1.SetToolTip(b, (string)b.Tag + "\r\n右键菜单设置");
+            }
+            p.Dispose();
+        }
+
+        private void 新增ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            path_save_flag = true;
+            ListQuickPath.Add(newPathButton("快捷路径", Path.Text));
+            _ListQuickPath_Layout();
+        }
+
+        private void 删除ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            path_save_flag = true;
+            Button b = (Button)((ContextMenuStrip)(((ToolStripMenuItem)sender).GetCurrentParent())).SourceControl;
+            ListQuickPath.Remove(b);
+            _ListQuickPath_Layout();
+        }
     }
 }

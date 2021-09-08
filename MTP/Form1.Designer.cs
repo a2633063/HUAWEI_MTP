@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.listBox1 = new System.Windows.Forms.ListBox();
             this.button1 = new System.Windows.Forms.Button();
             this.label20 = new System.Windows.Forms.Label();
@@ -50,12 +51,23 @@
             this.getTxt = new System.Windows.Forms.Button();
             this.filedelete = new System.Windows.Forms.Label();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this.chkAPKCopy = new System.Windows.Forms.CheckBox();
+            this.btnSaveTxt = new System.Windows.Forms.Button();
             this.typeenable = new System.Windows.Forms.CheckBox();
             this.devicechose = new System.Windows.Forms.CheckBox();
             this.showhidefile = new System.Windows.Forms.CheckBox();
             this.adbPath = new System.Windows.Forms.TextBox();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.panelQuickPathList = new System.Windows.Forms.Panel();
+            this.MenuQuickPath = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.设置ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.删除ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.新增ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
+            this.groupBox3.SuspendLayout();
+            this.MenuQuickPath.SuspendLayout();
             this.SuspendLayout();
             // 
             // listBox1
@@ -200,13 +212,13 @@
             this.groupBox1.Controls.Add(this.CopyToDesktop);
             this.groupBox1.Location = new System.Drawing.Point(312, 121);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(372, 108);
+            this.groupBox1.Size = new System.Drawing.Size(372, 102);
             this.groupBox1.TabIndex = 19;
             this.groupBox1.TabStop = false;
             // 
             // deletefile
             // 
-            this.deletefile.Location = new System.Drawing.Point(272, 47);
+            this.deletefile.Location = new System.Drawing.Point(272, 76);
             this.deletefile.Name = "deletefile";
             this.deletefile.Size = new System.Drawing.Size(90, 23);
             this.deletefile.TabIndex = 19;
@@ -237,17 +249,17 @@
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.getTxt);
-            this.groupBox2.Location = new System.Drawing.Point(312, 235);
+            this.groupBox2.Location = new System.Drawing.Point(312, 334);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(372, 90);
+            this.groupBox2.Size = new System.Drawing.Size(372, 69);
             this.groupBox2.TabIndex = 20;
             this.groupBox2.TabStop = false;
             // 
             // getTxt
             // 
-            this.getTxt.Location = new System.Drawing.Point(6, 20);
+            this.getTxt.Location = new System.Drawing.Point(29, 17);
             this.getTxt.Name = "getTxt";
-            this.getTxt.Size = new System.Drawing.Size(325, 53);
+            this.getTxt.Size = new System.Drawing.Size(325, 43);
             this.getTxt.TabIndex = 0;
             this.getTxt.Text = "获取文本";
             this.getTxt.UseVisualStyleBackColor = true;
@@ -259,11 +271,11 @@
             this.filedelete.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.filedelete.Font = new System.Drawing.Font("华文楷体", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.filedelete.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
-            this.filedelete.Location = new System.Drawing.Point(312, 328);
+            this.filedelete.Location = new System.Drawing.Point(312, 405);
             this.filedelete.Name = "filedelete";
-            this.filedelete.Size = new System.Drawing.Size(372, 169);
+            this.filedelete.Size = new System.Drawing.Size(372, 92);
             this.filedelete.TabIndex = 21;
-            this.filedelete.Text = "拖动apk文件到此安装";
+            this.filedelete.Text = "拖动文件到此复制/安装";
             this.filedelete.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.filedelete.UseMnemonic = false;
             this.filedelete.DragDrop += new System.Windows.Forms.DragEventHandler(this.apkInstall_DragDrop);
@@ -274,6 +286,26 @@
             this.openFileDialog1.FileName = "adb.exe";
             this.openFileDialog1.Filter = "adb执行文件|adb.exe";
             this.openFileDialog1.Title = "选择adb文件";
+            // 
+            // chkAPKCopy
+            // 
+            this.chkAPKCopy.AutoSize = true;
+            this.chkAPKCopy.Location = new System.Drawing.Point(543, 478);
+            this.chkAPKCopy.Name = "chkAPKCopy";
+            this.chkAPKCopy.Size = new System.Drawing.Size(138, 16);
+            this.chkAPKCopy.TabIndex = 22;
+            this.chkAPKCopy.Text = "拷贝apk文件而不安装";
+            this.chkAPKCopy.UseVisualStyleBackColor = true;
+            // 
+            // btnSaveTxt
+            // 
+            this.btnSaveTxt.Location = new System.Drawing.Point(591, 743);
+            this.btnSaveTxt.Name = "btnSaveTxt";
+            this.btnSaveTxt.Size = new System.Drawing.Size(75, 23);
+            this.btnSaveTxt.TabIndex = 23;
+            this.btnSaveTxt.Text = "写入文本";
+            this.btnSaveTxt.UseVisualStyleBackColor = true;
+            this.btnSaveTxt.Click += new System.EventHandler(this.btnSaveTxt_Click);
             // 
             // typeenable
             // 
@@ -322,12 +354,66 @@
             this.adbPath.Text = global::MTP.Properties.Settings.Default.adbPath;
             this.adbPath.DoubleClick += new System.EventHandler(this.adbPath_DoubleClick);
             // 
+            // groupBox3
+            // 
+            this.groupBox3.Controls.Add(this.panelQuickPathList);
+            this.groupBox3.Location = new System.Drawing.Point(312, 229);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(372, 107);
+            this.groupBox3.TabIndex = 22;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "快捷路径";
+            // 
+            // panelQuickPathList
+            // 
+            this.panelQuickPathList.ContextMenuStrip = this.MenuQuickPath;
+            this.panelQuickPathList.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelQuickPathList.Location = new System.Drawing.Point(3, 17);
+            this.panelQuickPathList.Name = "panelQuickPathList";
+            this.panelQuickPathList.Size = new System.Drawing.Size(366, 87);
+            this.panelQuickPathList.TabIndex = 22;
+            this.toolTip1.SetToolTip(this.panelQuickPathList, "右击菜单配置快捷路径");
+            // 
+            // MenuQuickPath
+            // 
+            this.MenuQuickPath.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.设置ToolStripMenuItem,
+            this.删除ToolStripMenuItem,
+            this.新增ToolStripMenuItem});
+            this.MenuQuickPath.Name = "MenuQucikPath";
+            this.MenuQuickPath.Size = new System.Drawing.Size(181, 92);
+            this.MenuQuickPath.Opening += new System.ComponentModel.CancelEventHandler(this.MenuQuickPath_Opening);
+            // 
+            // 设置ToolStripMenuItem
+            // 
+            this.设置ToolStripMenuItem.Name = "设置ToolStripMenuItem";
+            this.设置ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.设置ToolStripMenuItem.Text = "编辑";
+            this.设置ToolStripMenuItem.Click += new System.EventHandler(this.设置ToolStripMenuItem_Click);
+            // 
+            // 删除ToolStripMenuItem
+            // 
+            this.删除ToolStripMenuItem.Name = "删除ToolStripMenuItem";
+            this.删除ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.删除ToolStripMenuItem.Text = "删除";
+            this.删除ToolStripMenuItem.Click += new System.EventHandler(this.删除ToolStripMenuItem_Click);
+            // 
+            // 新增ToolStripMenuItem
+            // 
+            this.新增ToolStripMenuItem.Name = "新增ToolStripMenuItem";
+            this.新增ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.新增ToolStripMenuItem.Text = "新增";
+            this.新增ToolStripMenuItem.Click += new System.EventHandler(this.新增ToolStripMenuItem_Click);
+            // 
             // Form1
             // 
             this.AllowDrop = true;
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(687, 783);
+            this.Controls.Add(this.groupBox3);
+            this.Controls.Add(this.btnSaveTxt);
+            this.Controls.Add(this.chkAPKCopy);
             this.Controls.Add(this.filedelete);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.typeenable);
@@ -358,6 +444,8 @@
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
+            this.groupBox3.ResumeLayout(false);
+            this.MenuQuickPath.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -390,6 +478,15 @@
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.Button screenshot;
         private System.Windows.Forms.Button deletefile;
+        private System.Windows.Forms.CheckBox chkAPKCopy;
+        private System.Windows.Forms.Button btnSaveTxt;
+        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.Panel panelQuickPathList;
+        private System.Windows.Forms.ToolTip toolTip1;
+        private System.Windows.Forms.ContextMenuStrip MenuQuickPath;
+        private System.Windows.Forms.ToolStripMenuItem 设置ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 删除ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 新增ToolStripMenuItem;
     }
 }
 

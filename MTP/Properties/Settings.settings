@@ -17,5 +17,11 @@
     <Setting Name="typeenable" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
+    <Setting Name="Path1" Type="System.String" Scope="User">
+      <Value Profile="(Default)">storage/emulated/0</Value>
+    </Setting>
+    <Setting Name="PathName1" Type="System.String" Scope="User">
+      <Value Profile="(Default)">快捷链接1</Value>
+    </Setting>
   </Settings>
 </SettingsFile>
