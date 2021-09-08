@@ -3,4 +3,4 @@
 
 
 
-![软件截图](https://github.com/a2633063/HUAWEI_MTP/blob/master/%E8%BF%90%E8%A1%8C%E6%88%AA%E5%9B%BE/pic.png)
+![软件截图](https://cdn.jsdelivr.net/gh/a2633063/HUAWEI_MTP/%E8%BF%90%E8%A1%8C%E6%88%AA%E5%9B%BE/pic.png)
