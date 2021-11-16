@@ -90,13 +90,13 @@ namespace MTP
 
         private void setting_save(object sender, EventArgs e)
         {
-            if(path_save_flag)
+            if (path_save_flag)
             {
                 string str = "";
                 path_save_flag = false;
-                foreach(Button b in ListQuickPath)
+                foreach (Button b in ListQuickPath)
                 {//\n分割按钮  \r分割标题和路径
-                    str += b.Text + "\r" + (string)b.Tag +"\n";
+                    str += b.Text + "\r" + (string)b.Tag + "\n";
                 }
 
                 Properties.Settings.Default.Path1 = str;
@@ -493,6 +493,38 @@ namespace MTP
             Button b = (Button)((ContextMenuStrip)(((ToolStripMenuItem)sender).GetCurrentParent())).SourceControl;
             ListQuickPath.Remove(b);
             _ListQuickPath_Layout();
+        }
+
+        private void listBox1_DragEnter(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(DataFormats.FileDrop)) e.Effect = DragDropEffects.Link;
+            else e.Effect = DragDropEffects.None;
+        }
+
+        private void listBox1_DragDrop(object sender, DragEventArgs e)
+        {
+            bool isApk = false, isFile = false;
+            if (comboDevices.Items.Count < 1)
+            {
+                buttonDevices_Click(null, null);
+                return;
+            }
+            string[] filePath = (string[])e.Data.GetData(DataFormats.FileDrop);
+            foreach (string file in filePath)
+            {
+                //MessageBox.Show(file);
+
+
+                isFile = true;
+                Regex reg = new Regex(@".*\\");
+                string fileName = reg.Replace(file, "");
+
+                log.AppendText(adbCmd("push \"" + file + "\" \"/" + Path.Text + fileName + "\"") + "\r\n");
+
+                //MessageBox.Show(file);
+
+            }
+            if (isFile) log.AppendText("文件复制至存储空间命令已执行 _Zip/file文件夹内\r\n");
         }
     }
 }

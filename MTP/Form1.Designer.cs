@@ -72,12 +72,15 @@
             // 
             // listBox1
             // 
+            this.listBox1.AllowDrop = true;
             this.listBox1.FormattingEnabled = true;
             this.listBox1.ItemHeight = 12;
             this.listBox1.Location = new System.Drawing.Point(8, 127);
             this.listBox1.Name = "listBox1";
             this.listBox1.Size = new System.Drawing.Size(300, 640);
             this.listBox1.TabIndex = 1;
+            this.listBox1.DragDrop += new System.Windows.Forms.DragEventHandler(this.listBox1_DragDrop);
+            this.listBox1.DragEnter += new System.Windows.Forms.DragEventHandler(this.listBox1_DragEnter);
             this.listBox1.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.listBox1_MouseDoubleClick);
             // 
             // button1
@@ -160,7 +163,7 @@
             this.Path.Name = "Path";
             this.Path.Size = new System.Drawing.Size(101, 12);
             this.Path.TabIndex = 11;
-            this.Path.Text = "storage/sdcard0/";
+            this.Path.Text = "storage/emulated/0";
             this.Path.DoubleClick += new System.EventHandler(this.Path_DoubleClick);
             // 
             // reFile
