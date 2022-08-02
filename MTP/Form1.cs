@@ -185,7 +185,7 @@ namespace MTP
         private String adbList(String strPath)
         {
             if (!strPath.EndsWith("/")) strPath = strPath + "/";
-            String strcmd = adbCmd("shell " + (showhidefile.Checked ? " ls -A -F " : "ls -F ") + strPath);
+            String strcmd = adbCmd("shell " + (showhidefile.Checked ? " ls -A -p " : "ls -p ") + strPath);
             if (strcmd.StartsWith("error:无返回结果"))
             {
                 strcmd = "";
@@ -406,11 +406,14 @@ namespace MTP
         {
             if (listBox1.SelectedIndex > -1 && !listBox1.SelectedItem.ToString().Equals(".."))
             {
-                DialogResult dr = MessageBox.Show("您将删除文件:" + Path.Text + listBox1.SelectedItem.ToString() + "\r\n执行命令:adb shell rm " + Path.Text + listBox1.SelectedItem.ToString() + "\r\n确认?", "注意", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
+                DialogResult dr = MessageBox.Show("您将删除文件:" + Path.Text + listBox1.SelectedItem.ToString() + "\r\n执行命令:adb shell rm "+(listBox1.SelectedItem.ToString().EndsWith("/")?"-r ":" ") + Path.Text + listBox1.SelectedItem.ToString() + "\r\n确认?", "注意", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
                 if (dr == DialogResult.OK)
                 {//确定
                     int x = listBox1.SelectedIndex;
-                    adbCmd("shell rm \"" + Path.Text + listBox1.SelectedItem.ToString() + "\"");
+                    string cmd = "shell rm ";
+                    if (listBox1.SelectedItem.ToString().EndsWith("/")) cmd = cmd + "-r ";
+                    cmd = cmd + "\"" + Path.Text + listBox1.SelectedItem.ToString() + "\"";
+                    adbCmd(cmd);
                     reFile_Click(null, null);
                     listBox1.SelectedIndex = x - 1;//删除后选中上一个选项
 

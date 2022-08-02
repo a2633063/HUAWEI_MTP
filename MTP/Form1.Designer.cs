@@ -46,17 +46,12 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.deletefile = new System.Windows.Forms.Button();
             this.screenshot = new System.Windows.Forms.Button();
-            this.textBox1 = new System.Windows.Forms.TextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.getTxt = new System.Windows.Forms.Button();
             this.filedelete = new System.Windows.Forms.Label();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.chkAPKCopy = new System.Windows.Forms.CheckBox();
             this.btnSaveTxt = new System.Windows.Forms.Button();
-            this.typeenable = new System.Windows.Forms.CheckBox();
-            this.devicechose = new System.Windows.Forms.CheckBox();
-            this.showhidefile = new System.Windows.Forms.CheckBox();
-            this.adbPath = new System.Windows.Forms.TextBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.panelQuickPathList = new System.Windows.Forms.Panel();
             this.MenuQuickPath = new System.Windows.Forms.ContextMenuStrip(this.components);
@@ -64,6 +59,11 @@
             this.删除ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.新增ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.typeenable = new System.Windows.Forms.CheckBox();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.devicechose = new System.Windows.Forms.CheckBox();
+            this.showhidefile = new System.Windows.Forms.CheckBox();
+            this.adbPath = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -73,11 +73,11 @@
             // listBox1
             // 
             this.listBox1.AllowDrop = true;
+            this.listBox1.Font = new System.Drawing.Font("宋体", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.listBox1.FormattingEnabled = true;
-            this.listBox1.ItemHeight = 12;
-            this.listBox1.Location = new System.Drawing.Point(8, 127);
+            this.listBox1.Location = new System.Drawing.Point(8, 121);
             this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(300, 640);
+            this.listBox1.Size = new System.Drawing.Size(300, 641);
             this.listBox1.TabIndex = 1;
             this.listBox1.DragDrop += new System.Windows.Forms.DragEventHandler(this.listBox1_DragDrop);
             this.listBox1.DragEnter += new System.Windows.Forms.DragEventHandler(this.listBox1_DragEnter);
@@ -121,7 +121,7 @@
             // 
             // log
             // 
-            this.log.Location = new System.Drawing.Point(312, 500);
+            this.log.Location = new System.Drawing.Point(312, 495);
             this.log.Multiline = true;
             this.log.Name = "log";
             this.log.ScrollBars = System.Windows.Forms.ScrollBars.Both;
@@ -159,16 +159,16 @@
             // Path
             // 
             this.Path.AutoSize = true;
-            this.Path.Location = new System.Drawing.Point(6, 770);
+            this.Path.Location = new System.Drawing.Point(6, 768);
             this.Path.Name = "Path";
-            this.Path.Size = new System.Drawing.Size(101, 12);
+            this.Path.Size = new System.Drawing.Size(113, 12);
             this.Path.TabIndex = 11;
             this.Path.Text = "storage/emulated/0";
             this.Path.DoubleClick += new System.EventHandler(this.Path_DoubleClick);
             // 
             // reFile
             // 
-            this.reFile.Location = new System.Drawing.Point(8, 97);
+            this.reFile.Location = new System.Drawing.Point(8, 93);
             this.reFile.Name = "reFile";
             this.reFile.Size = new System.Drawing.Size(198, 23);
             this.reFile.TabIndex = 13;
@@ -178,7 +178,7 @@
             // 
             // CopyToPath
             // 
-            this.CopyToPath.Location = new System.Drawing.Point(6, 47);
+            this.CopyToPath.Location = new System.Drawing.Point(6, 40);
             this.CopyToPath.Name = "CopyToPath";
             this.CopyToPath.Size = new System.Drawing.Size(90, 23);
             this.CopyToPath.TabIndex = 16;
@@ -188,7 +188,7 @@
             // 
             // CopyToDesktop
             // 
-            this.CopyToDesktop.Location = new System.Drawing.Point(6, 76);
+            this.CopyToDesktop.Location = new System.Drawing.Point(6, 69);
             this.CopyToDesktop.Name = "CopyToDesktop";
             this.CopyToDesktop.Size = new System.Drawing.Size(90, 23);
             this.CopyToDesktop.TabIndex = 17;
@@ -198,7 +198,7 @@
             // 
             // RefileSD
             // 
-            this.RefileSD.Location = new System.Drawing.Point(212, 97);
+            this.RefileSD.Location = new System.Drawing.Point(212, 93);
             this.RefileSD.Name = "RefileSD";
             this.RefileSD.Size = new System.Drawing.Size(96, 23);
             this.RefileSD.TabIndex = 13;
@@ -221,7 +221,7 @@
             // 
             // deletefile
             // 
-            this.deletefile.Location = new System.Drawing.Point(272, 76);
+            this.deletefile.Location = new System.Drawing.Point(274, 69);
             this.deletefile.Name = "deletefile";
             this.deletefile.Size = new System.Drawing.Size(90, 23);
             this.deletefile.TabIndex = 19;
@@ -231,7 +231,7 @@
             // 
             // screenshot
             // 
-            this.screenshot.Location = new System.Drawing.Point(102, 47);
+            this.screenshot.Location = new System.Drawing.Point(102, 40);
             this.screenshot.Name = "screenshot";
             this.screenshot.Size = new System.Drawing.Size(90, 23);
             this.screenshot.TabIndex = 18;
@@ -239,28 +239,18 @@
             this.screenshot.UseVisualStyleBackColor = true;
             this.screenshot.Click += new System.EventHandler(this.screenshot_Click);
             // 
-            // textBox1
-            // 
-            this.textBox1.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::MTP.Properties.Settings.Default, "computerPath", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.textBox1.Location = new System.Drawing.Point(6, 20);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(358, 21);
-            this.textBox1.TabIndex = 15;
-            this.textBox1.Text = global::MTP.Properties.Settings.Default.computerPath;
-            this.textBox1.DoubleClick += new System.EventHandler(this.textBox1_DoubleClick);
-            // 
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.getTxt);
-            this.groupBox2.Location = new System.Drawing.Point(312, 334);
+            this.groupBox2.Location = new System.Drawing.Point(312, 428);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(372, 69);
+            this.groupBox2.Size = new System.Drawing.Size(372, 64);
             this.groupBox2.TabIndex = 20;
             this.groupBox2.TabStop = false;
             // 
             // getTxt
             // 
-            this.getTxt.Location = new System.Drawing.Point(29, 17);
+            this.getTxt.Location = new System.Drawing.Point(23, 14);
             this.getTxt.Name = "getTxt";
             this.getTxt.Size = new System.Drawing.Size(325, 43);
             this.getTxt.TabIndex = 0;
@@ -274,7 +264,7 @@
             this.filedelete.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.filedelete.Font = new System.Drawing.Font("华文楷体", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.filedelete.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
-            this.filedelete.Location = new System.Drawing.Point(312, 405);
+            this.filedelete.Location = new System.Drawing.Point(312, 336);
             this.filedelete.Name = "filedelete";
             this.filedelete.Size = new System.Drawing.Size(372, 92);
             this.filedelete.TabIndex = 21;
@@ -293,7 +283,7 @@
             // chkAPKCopy
             // 
             this.chkAPKCopy.AutoSize = true;
-            this.chkAPKCopy.Location = new System.Drawing.Point(543, 478);
+            this.chkAPKCopy.Location = new System.Drawing.Point(545, 411);
             this.chkAPKCopy.Name = "chkAPKCopy";
             this.chkAPKCopy.Size = new System.Drawing.Size(138, 16);
             this.chkAPKCopy.TabIndex = 22;
@@ -302,13 +292,64 @@
             // 
             // btnSaveTxt
             // 
-            this.btnSaveTxt.Location = new System.Drawing.Point(591, 743);
+            this.btnSaveTxt.Location = new System.Drawing.Point(591, 738);
             this.btnSaveTxt.Name = "btnSaveTxt";
             this.btnSaveTxt.Size = new System.Drawing.Size(75, 23);
             this.btnSaveTxt.TabIndex = 23;
             this.btnSaveTxt.Text = "写入文本";
             this.btnSaveTxt.UseVisualStyleBackColor = true;
             this.btnSaveTxt.Click += new System.EventHandler(this.btnSaveTxt_Click);
+            // 
+            // groupBox3
+            // 
+            this.groupBox3.Controls.Add(this.panelQuickPathList);
+            this.groupBox3.Location = new System.Drawing.Point(312, 227);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(372, 107);
+            this.groupBox3.TabIndex = 22;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "快捷路径";
+            // 
+            // panelQuickPathList
+            // 
+            this.panelQuickPathList.ContextMenuStrip = this.MenuQuickPath;
+            this.panelQuickPathList.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelQuickPathList.Location = new System.Drawing.Point(3, 17);
+            this.panelQuickPathList.Name = "panelQuickPathList";
+            this.panelQuickPathList.Size = new System.Drawing.Size(366, 87);
+            this.panelQuickPathList.TabIndex = 22;
+            this.toolTip1.SetToolTip(this.panelQuickPathList, "右击菜单配置快捷路径");
+            // 
+            // MenuQuickPath
+            // 
+            this.MenuQuickPath.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.设置ToolStripMenuItem,
+            this.删除ToolStripMenuItem,
+            this.新增ToolStripMenuItem});
+            this.MenuQuickPath.Name = "MenuQucikPath";
+            this.MenuQuickPath.Size = new System.Drawing.Size(101, 70);
+            this.MenuQuickPath.Opening += new System.ComponentModel.CancelEventHandler(this.MenuQuickPath_Opening);
+            // 
+            // 设置ToolStripMenuItem
+            // 
+            this.设置ToolStripMenuItem.Name = "设置ToolStripMenuItem";
+            this.设置ToolStripMenuItem.Size = new System.Drawing.Size(100, 22);
+            this.设置ToolStripMenuItem.Text = "编辑";
+            this.设置ToolStripMenuItem.Click += new System.EventHandler(this.设置ToolStripMenuItem_Click);
+            // 
+            // 删除ToolStripMenuItem
+            // 
+            this.删除ToolStripMenuItem.Name = "删除ToolStripMenuItem";
+            this.删除ToolStripMenuItem.Size = new System.Drawing.Size(100, 22);
+            this.删除ToolStripMenuItem.Text = "删除";
+            this.删除ToolStripMenuItem.Click += new System.EventHandler(this.删除ToolStripMenuItem_Click);
+            // 
+            // 新增ToolStripMenuItem
+            // 
+            this.新增ToolStripMenuItem.Name = "新增ToolStripMenuItem";
+            this.新增ToolStripMenuItem.Size = new System.Drawing.Size(100, 22);
+            this.新增ToolStripMenuItem.Text = "新增";
+            this.新增ToolStripMenuItem.Click += new System.EventHandler(this.新增ToolStripMenuItem_Click);
             // 
             // typeenable
             // 
@@ -322,6 +363,16 @@
             this.typeenable.TabIndex = 12;
             this.typeenable.Text = "类型排序";
             this.typeenable.UseVisualStyleBackColor = true;
+            // 
+            // textBox1
+            // 
+            this.textBox1.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::MTP.Properties.Settings.Default, "computerPath", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.textBox1.Location = new System.Drawing.Point(6, 13);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(358, 21);
+            this.textBox1.TabIndex = 15;
+            this.textBox1.Text = global::MTP.Properties.Settings.Default.computerPath;
+            this.textBox1.DoubleClick += new System.EventHandler(this.textBox1_DoubleClick);
             // 
             // devicechose
             // 
@@ -356,57 +407,6 @@
             this.adbPath.TabIndex = 2;
             this.adbPath.Text = global::MTP.Properties.Settings.Default.adbPath;
             this.adbPath.DoubleClick += new System.EventHandler(this.adbPath_DoubleClick);
-            // 
-            // groupBox3
-            // 
-            this.groupBox3.Controls.Add(this.panelQuickPathList);
-            this.groupBox3.Location = new System.Drawing.Point(312, 229);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(372, 107);
-            this.groupBox3.TabIndex = 22;
-            this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "快捷路径";
-            // 
-            // panelQuickPathList
-            // 
-            this.panelQuickPathList.ContextMenuStrip = this.MenuQuickPath;
-            this.panelQuickPathList.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelQuickPathList.Location = new System.Drawing.Point(3, 17);
-            this.panelQuickPathList.Name = "panelQuickPathList";
-            this.panelQuickPathList.Size = new System.Drawing.Size(366, 87);
-            this.panelQuickPathList.TabIndex = 22;
-            this.toolTip1.SetToolTip(this.panelQuickPathList, "右击菜单配置快捷路径");
-            // 
-            // MenuQuickPath
-            // 
-            this.MenuQuickPath.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.设置ToolStripMenuItem,
-            this.删除ToolStripMenuItem,
-            this.新增ToolStripMenuItem});
-            this.MenuQuickPath.Name = "MenuQucikPath";
-            this.MenuQuickPath.Size = new System.Drawing.Size(181, 92);
-            this.MenuQuickPath.Opening += new System.ComponentModel.CancelEventHandler(this.MenuQuickPath_Opening);
-            // 
-            // 设置ToolStripMenuItem
-            // 
-            this.设置ToolStripMenuItem.Name = "设置ToolStripMenuItem";
-            this.设置ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.设置ToolStripMenuItem.Text = "编辑";
-            this.设置ToolStripMenuItem.Click += new System.EventHandler(this.设置ToolStripMenuItem_Click);
-            // 
-            // 删除ToolStripMenuItem
-            // 
-            this.删除ToolStripMenuItem.Name = "删除ToolStripMenuItem";
-            this.删除ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.删除ToolStripMenuItem.Text = "删除";
-            this.删除ToolStripMenuItem.Click += new System.EventHandler(this.删除ToolStripMenuItem_Click);
-            // 
-            // 新增ToolStripMenuItem
-            // 
-            this.新增ToolStripMenuItem.Name = "新增ToolStripMenuItem";
-            this.新增ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.新增ToolStripMenuItem.Text = "新增";
-            this.新增ToolStripMenuItem.Click += new System.EventHandler(this.新增ToolStripMenuItem_Click);
             // 
             // Form1
             // 
