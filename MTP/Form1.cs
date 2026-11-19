@@ -185,7 +185,7 @@ namespace MTP
         private String adbList(String strPath)
         {
             if (!strPath.EndsWith("/")) strPath = strPath + "/";
-            String strcmd = adbCmd("shell " + (showhidefile.Checked ? " ls -A -p " : "ls -p ") + strPath);
+            String strcmd = adbCmd($@"shell ""{ (showhidefile.Checked ? " ls -A -p " : "ls -p ")} '{strPath}'""");
             if (strcmd.StartsWith("error:无返回结果"))
             {
                 strcmd = "";
